@@ -55,8 +55,12 @@ input[type=text]:focus, input[type=password]:focus, input[type=number]:focus, se
   opacity: 0.9;
   font-size:16px;
 }
+.button:disabled{
+  background-color: rgba(47, 11, 68, 0.925);
+  cursor: auto;
+}
 
-.button:hover {
+.button:hover:enabled {
   background-color: rgba(145, 38, 207, 0.925);
 }
 

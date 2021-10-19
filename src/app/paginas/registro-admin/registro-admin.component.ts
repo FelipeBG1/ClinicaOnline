@@ -4,6 +4,7 @@ import { async } from '@firebase/util';
 import { AuthService } from 'src/app/servicios/auth.service';
 import { ImagenesService } from 'src/app/servicios/imagenes.service';
 import { FirestoreService } from 'src/app/servicios/firestore.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-registro-admin',
@@ -17,7 +18,7 @@ export class RegistroAdminComponent implements OnInit {
   usuario : any;
   archivo : any = "";
 
-  constructor(private fb : FormBuilder, public as : AuthService, private fs : FirestoreService, private imageService : ImagenesService) {
+  constructor(private fb : FormBuilder, public as : AuthService, private fs : FirestoreService, private imageService : ImagenesService, private ts : ToastrService) {
     this.form = this.fb.group({
       'nombre' : ['',Validators.required],
       'apellido' : ['',Validators.required,Validators.email],
@@ -51,18 +52,30 @@ export class RegistroAdminComponent implements OnInit {
 
   registrarse()
   {
+    this.as.loading = true;
     this.as.registro(this.usuario).then(async res =>{
-      this.as.loading = true;
-      this.as.logeado = this.usuario;
       await this.subirFoto();
       
       setTimeout(() => {
-        console.log("Admin registrado");
         this.as.loading = false;
+        this.ts.success("Se registro al administrador con exito","Registro exitoso");
+        this.form.reset();
       }, 2000);
     })
     .catch((error : any)=>{
-      console.log("Error, admin no registrado");
+      if(error.code == 'auth/email-already-exists')
+      {
+        this.as.loading = false;
+        this.ts.error("Ese email ya esta registrado","Email inválido");
+      }
+      else
+      {
+        if(error.code == 'auth/internal-error')
+        {
+          this.as.loading = false;
+          this.ts.error("Ha ocurrido un error en el registro","Error");
+        }
+      }
     })
   }
 

@@ -43,7 +43,7 @@ input[type=text]:focus, input[type=password]:focus, input[type=number]:focus, se
   outline: none;
 }
 
-button {
+.button {
   background-color: rgba(118, 29, 170, 0.925);
   color: white;
   padding: 10px 15px;
@@ -55,9 +55,14 @@ button {
   font-size:16px;
 }
 
-button:hover {
+.button:hover:enabled {
   background-color: rgba(145, 38, 207, 0.925);
 }
+
+.button:disabled {
+  background-color: rgba(69, 18, 99, 0.925);
+}
+
 
 @media screen and (max-width: 910px) {
   .signupbtn {

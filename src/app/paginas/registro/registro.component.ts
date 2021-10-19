@@ -4,6 +4,7 @@ import { async } from '@firebase/util';
 import { AuthService } from 'src/app/servicios/auth.service';
 import { ImagenesService } from 'src/app/servicios/imagenes.service';
 import { FirestoreService } from 'src/app/servicios/firestore.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-registro',
@@ -32,14 +33,10 @@ export class RegistroComponent implements OnInit {
       {
         this.registroPaciente();
       }
-      else
-      {
-        this.registroAdministrador();
-      }
     }
   }
 
-  constructor(private fb : FormBuilder, public as : AuthService, private imageStore : ImagenesService, private fs : FirestoreService) {
+  constructor(private fb : FormBuilder, public as : AuthService, private imageStore : ImagenesService, private fs : FirestoreService, private ts : ToastrService) {
     this.form = this.fb.group({});
     this.formData = new FormData();
     
@@ -52,13 +49,13 @@ export class RegistroComponent implements OnInit {
   {
     this.form = this.fb.group({
       'nombre' : ['',Validators.required],
-      'apellido' : ['',Validators.required,Validators.email],
-      'edad' : ['',[Validators.required,Validators.min(18),Validators.max(85)]],
+      'apellido' : ['',[Validators.required]],
+      'edad' : ['',[Validators.required,Validators.min(25),Validators.max(85)]],
       'dni' : ['',[Validators.required,Validators.min(10000000),Validators.max(99999999)]],
-      'especialidad' : ['',[Validators.required, Validators.maxLength(20)]],
+      'especialidad' : ['',[Validators.required,Validators.maxLength(20)]],
       'mail' : ['',[Validators.required,Validators.email]],
       'password' : ['',[Validators.required,Validators.minLength(6)]],
-      'imagen' : [null,Validators.required] 
+      'imagen' : [null,[Validators.required]]
     });
   }
 
@@ -66,26 +63,13 @@ export class RegistroComponent implements OnInit {
   {
     this.form = this.fb.group({
       'nombre' : ['',Validators.required],
-      'apellido' : ['',Validators.required,Validators.email],
-      'edad' : ['',[Validators.required,Validators.min(18),Validators.max(85)]],
+      'apellido' : ['',Validators.required],
+      'edad' : ['',[Validators.required,Validators.min(12),Validators.max(85)]],
       'dni' : ['',[Validators.required,Validators.min(10000000),Validators.max(99999999)]],
       'obraSocial' : ['',[Validators.required, Validators.maxLength(20)]],
       'mail' : ['',[Validators.required,Validators.email]],
       'password' : ['',[Validators.required,Validators.minLength(6)]],
-      'imagen' : [null,Validators.required]
-    });
-  }
-
-  registroAdministrador()
-  {
-    this.form = this.fb.group({
-      'nombre' : ['',Validators.required],
-      'apellido' : ['',Validators.required,Validators.email],
-      'edad' : ['',[Validators.required,Validators.min(18),Validators.max(85)]],
-      'dni' : ['',[Validators.required,Validators.min(10000000),Validators.max(99999999)]],
-      'mail' : ['',[Validators.required,Validators.email]],
-      'password' : ['',[Validators.required,Validators.minLength(6)]],
-      'imagen' : [null]
+      'imagen' : [null,[Validators.required]]
     });
   }
 
@@ -121,18 +105,6 @@ export class RegistroComponent implements OnInit {
           imagen : 'null'
         }
       }
-      else
-      {
-        this.user = {
-          nombre : this.form.get('nombre')?.value,
-          apellido : this.form.get('apellido')?.value,
-          edad : this.form.get('edad')?.value,
-          dni : this.form.get('dni')?.value,
-          mail : this.form.get('mail')?.value,
-          password : this.form.get('password')?.value,
-          perfil : "admin"
-        }
-      }
     }
 
     this.registrarse();
@@ -140,19 +112,30 @@ export class RegistroComponent implements OnInit {
 
   registrarse()
   {
+    this.as.loading = true;
     this.as.registro(this.user).then(async res =>{
-      this.as.loading = true;
-      this.as.logeado = this.user;
       await this.subirFoto();
-      await res.user?.sendEmailVerification();
-      
+      await res.user?.sendEmailVerification(); 
       setTimeout(() => {
-        console.log("Usuario registrado");
+        this.as.loading = false;
+        this.ts.success("Se registro el" + this.tipoUsuario,"Registro realizado");
+        this.form.reset(); 
       }, 2000);
-      this.as.loading = false;
     })
     .catch((error : any)=>{
-      console.log("Error, usuario no registrado");
+      if(error.code == 'auth/email-already-exists' || error.code == 'auth/email-already-in-use')
+      {
+        this.as.loading = false;
+        this.ts.error("Ese email ya esta registrado","Email inválido");
+      }
+      else
+      {
+        if(error.code == 'auth/internal-error')
+        {
+          this.as.loading = false;
+          this.ts.error("Ha ocurrido un error en el registro","Error");
+        }
+      }
     })
   }
 
@@ -202,20 +185,13 @@ export class RegistroComponent implements OnInit {
       }
       else
       {
-        if(this.tipoUsuario == "admin")
-        {
-          this.fs.agregarPaciente(this.user);
-        }
-        else
-        {
-          this.user.imagenes.push(url1);
-          console.log(this.user.imagenes);
+        this.user.imagenes.push(url1);
+        console.log(this.user.imagenes);
 
-          referencia2.getDownloadURL().subscribe((url2 : any) =>{
-            this.user.imagenes.push(url2);
-            this.fs.agregarPaciente(this.user);
-          });
-        }
+        referencia2.getDownloadURL().subscribe((url2 : any) =>{
+          this.user.imagenes.push(url2);
+          this.fs.agregarPaciente(this.user);
+        });
       }
     });
   }

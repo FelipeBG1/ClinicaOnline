@@ -14,6 +14,13 @@ import { PerfilesRegistroComponent } from './paginas/perfiles-registro/perfiles-
 import { RegistroAdminComponent } from './paginas/registro-admin/registro-admin.component';
 import { TablaPacientesComponent } from './paginas/tabla-pacientes/tabla-pacientes.component';
 import { TablaEspecialistasComponent } from './paginas/tabla-especialistas/tabla-especialistas.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ToastrModule } from 'ngx-toastr';
+import { ErrorLogeoComponent } from './paginas/error-logeo/error-logeo.component';
+import { ErrorAdminComponent } from './paginas/error-admin/error-admin.component';
+import { NavbarComponent } from './paginas/navbar/navbar.component';
+import { ErrorComponent } from './paginas/error/error.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +33,10 @@ import { TablaEspecialistasComponent } from './paginas/tabla-especialistas/tabla
     RegistroAdminComponent,
     TablaPacientesComponent,
     TablaEspecialistasComponent,
+    ErrorLogeoComponent,
+    ErrorAdminComponent,
+    NavbarComponent,
+    ErrorComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,6 +44,12 @@ import { TablaEspecialistasComponent } from './paginas/tabla-especialistas/tabla
     ReactiveFormsModule,
     FormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 2000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]
