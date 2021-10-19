@@ -1,0 +1,36 @@
+<div class="p-3">
+    <table class="table table-striped table-dark">
+        <thead>
+          <tr>  
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Edad</th>
+            <th scope="col">DNI</th>
+            <th scope="col">Especialidad</th>
+            <th scope="col">Mail</th>
+            <th scope="col">Estado de la Cuenta</th>
+            <th scope="col">Imagen</th>
+            <th scope="col">Habilitar/Inhabilitar cuenta</th>
+          </tr>
+        </thead>
+        <tbody>
+                <tr *ngFor="let especialista of especialistas">
+                    <td>{{especialista.nombre}}</td>
+                    <td>{{especialista.apellido}}</td>
+                    <td>{{especialista.edad}}</td>
+                    <td>{{especialista.dni}}</td>
+                    <td>{{especialista.especialidad}}</td>
+                    <td>{{especialista.mail}}</td>
+                    <td>{{especialista.estadoCuenta}}</td>
+                    <td>
+                        <img src={{especialista.imagen}} width="100px" height="100px"/>
+                    </td>
+                    <td>
+                        <button class="btn btn-outline-light" (click)="cambiarEstadoCuenta(especialista,1)" *ngIf='especialista.estadoCuenta !== "Habilitada"'>Habilitar</button>
+                        <button class="btn btn-outline-light" (click)="cambiarEstadoCuenta(especialista,2)" *ngIf='especialista.estadoCuenta !== "Inhabilitada"'>Inhabilitar</button>
+                    </td>
+                </tr> 
+        </tbody>
+      </table>
+</div>    
+

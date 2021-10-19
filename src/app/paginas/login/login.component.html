@@ -1,0 +1,32 @@
+<div class="container" style="min-height: 100vh !important">
+        <div *ngIf="this.as.loading">
+            <app-spinner></app-spinner>
+        </div>
+    
+        <form [formGroup]='form' (ngSubmit)="this.logearse()">
+            <div class="containerForm text-white">
+                <h1 class="text-center">Login</h1>
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <label for="email"><b>Email</b></label>
+                        <input type="text" formControlName='mail' name="mail" required>  
+                        <small class="invalid" *ngIf="form.controls.mail.errors?.required && form.controls.mail.touched">El mail es requerido</small>
+                        <small class="invalid" *ngIf="form.controls.mail.errors?.email">No es un mail valido</small>
+                    </div>
+    
+                    <div class="col-12">
+                        <label for="password"><b>Contraseña</b></label>
+                        <input type="password" formControlName='password' name="password" required>
+                        <small class="invalid" *ngIf="form.controls.password.errors?.required && form.controls.password.touched">La contraseña es requerida</small>
+                    </div>
+                </div>
+    
+                <div class="row justify-content-around mt-3">
+                    <button type="button" (click)='this.datosEspecialista()' class="btn btn-outline-light col-md-3">Ingresar rapido como especialista</button>
+                    <button type="button" (click)='this.datosPaciente()' class="btn btn-outline-light col-md-3">Ingresar rapido como paciente</button>
+                    <button type="button" (click)='this.datosAdmin()' class="btn btn-outline-light col-md-3">Ingresar rapido como admin</button>
+                    <button type="submit" [disabled]='form.invalid' class="button fs-4 mt-3">Ingresar</button>
+                </div>
+            </div>
+        </form>
+    </div>

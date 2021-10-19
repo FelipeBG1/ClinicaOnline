@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "clinica-7718f": {
+      "hosting": {
+        "ClinicaOnline": [
+          "clinica-7718f"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "clinica-7718f"
+  }
+}

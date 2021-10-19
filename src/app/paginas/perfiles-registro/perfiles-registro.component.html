@@ -1,0 +1,9 @@
+<div class="row justify-content-center my-5 gap-3" *ngIf='!this.tipo'>
+    <button class="col-5 btn btn-danger mr-2" (click)='tipo = "paciente"'>
+        Paciente
+    </button>
+    <button class="col-5 btn btn-danger" (click)='tipo = "especialista"'>
+        Especialista
+    </button>
+</div>
+<app-registro *ngIf='this.tipo' [tipo]="this.tipo"></app-registro>

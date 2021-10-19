@@ -1,0 +1,29 @@
+<div class="p-3">
+    <table class="table table-striped table-dark">
+        <thead>
+          <tr>  
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Edad</th>
+            <th scope="col">DNI</th>
+            <th scope="col">Obra Social</th>
+            <th scope="col">Mail</th>
+            <th scope="col">Imagenes</th>
+          </tr>
+        </thead>
+        <tbody>
+                <tr *ngFor="let paciente of pacientes">
+                    <td>{{paciente.nombre}}</td>
+                    <td>{{paciente.apellido}}</td>
+                    <td>{{paciente.edad}}</td>
+                    <td>{{paciente.dni}}</td>
+                    <td>{{paciente.obraSocial}}</td>
+                    <td>{{paciente.mail}}</td>
+                    <td>
+                        <img src={{paciente.imagenes[0]}} width="100px" height="100px" style="margin-right: 10px;"/>
+                        <img src={{paciente.imagenes[1]}} width="100px" height="100px"/>
+                    </td>
+                </tr> 
+        </tbody>
+      </table>
+</div>    
