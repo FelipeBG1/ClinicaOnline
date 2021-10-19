@@ -86,7 +86,8 @@ export class RegistroComponent implements OnInit {
         mail : this.form.get('mail')?.value,
         password : this.form.get('password')?.value,
         perfil : this.tipoUsuario,
-        imagenes : []
+        imagenes : [],
+        estadoCuenta : "En espera"
       }
     }
     else
@@ -102,7 +103,8 @@ export class RegistroComponent implements OnInit {
           mail : this.form.get('mail')?.value,
           password : this.form.get('password')?.value,
           perfil : this.tipoUsuario,
-          imagen : 'null'
+          imagen : 'null',
+          estadoCuenta : "En espera"
         }
       }
     }
