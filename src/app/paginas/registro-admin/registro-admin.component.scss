@@ -56,9 +56,14 @@ button {
   font-size:16px;
 }
 
-button:hover {
+button:hover:enabled {
   background-color: rgba(145, 38, 207, 0.925);
 }
+
+button:disabled {
+  background-color: rgba(69, 18, 99, 0.925);
+}
+
 
 @media screen and (max-width: 910px) {
   .signupbtn {

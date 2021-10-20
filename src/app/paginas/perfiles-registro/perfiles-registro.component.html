@@ -1,10 +1,9 @@
 <app-navbar></app-navbar>
-<div class="row justify-content-center my-5 gap-3" *ngIf='!this.tipo'>
-    <button class="col-5 btn btn-danger mr-2" (click)='tipo = "paciente"'>
-        Paciente
-    </button>
-    <button class="col-5 btn btn-danger" (click)='tipo = "especialista"'>
-        Especialista
-    </button>
+<div class="row justify-content-around text-center" *ngIf='!this.tipo'>
+    <div class="col-12">
+        <button class="col-5 button fs-3 ms-2" (click)='tipo = "paciente"'>Paciente</button>
+        <button class="col-5 button fs-3 ms-2" (click)='tipo = "especialista"'>Especialista</button>
+    </div>
+
 </div>
 <app-registro *ngIf='this.tipo' [tipo]="this.tipo"></app-registro>

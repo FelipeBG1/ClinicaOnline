@@ -21,6 +21,8 @@ import { ErrorLogeoComponent } from './paginas/error-logeo/error-logeo.component
 import { ErrorAdminComponent } from './paginas/error-admin/error-admin.component';
 import { NavbarComponent } from './paginas/navbar/navbar.component';
 import { ErrorComponent } from './paginas/error/error.component';
+import { TablaAdminsComponent } from './paginas/tabla-admins/tabla-admins.component';
+import { SeccionUsuariosComponent } from './paginas/seccion-usuarios/seccion-usuarios.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import { ErrorComponent } from './paginas/error/error.component';
     ErrorAdminComponent,
     NavbarComponent,
     ErrorComponent,
+    TablaAdminsComponent,
+    SeccionUsuariosComponent,
   ],
   imports: [
     BrowserModule,

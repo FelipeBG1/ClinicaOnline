@@ -1,0 +1,17 @@
+<app-navbar></app-navbar>
+<div class="row justify-content-around text-center">
+    <div class="col-12">
+        <button class="col-3 button fs-3 ms-2" (click)="this.cargarTipo(1)" *ngIf="this.tipoUsuario != 'paciente'">Pacientes</button>
+        <button class="col-3 button fs-3 ms-2" (click)="this.cargarTipo(2)" *ngIf="this.tipoUsuario != 'especialista'">Especialistas</button>
+        <button class="col-3 button fs-3 ms-2" (click)="this.cargarTipo(3)" *ngIf="this.tipoUsuario != 'admin'">Administradores</button>
+    </div>
+    <div class="col-6" *ngIf="this.tipoUsuario == 'admin'">
+        <button class="col-6 boton fs-5" [routerLink] = "['/usuarios/registroAdmin']">Registrar administrador</button>
+    </div>
+
+    <div>
+        <app-tabla-pacientes *ngIf="this.tipoUsuario == 'paciente'"></app-tabla-pacientes>
+        <app-tabla-especialistas *ngIf="this.tipoUsuario == 'especialista'"></app-tabla-especialistas>
+        <app-tabla-admins *ngIf="this.tipoUsuario == 'admin'"></app-tabla-admins>
+    </div>
+</div>

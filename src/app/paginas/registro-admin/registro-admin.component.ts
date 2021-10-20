@@ -21,7 +21,7 @@ export class RegistroAdminComponent implements OnInit {
   constructor(private fb : FormBuilder, public as : AuthService, private fs : FirestoreService, private imageService : ImagenesService, private ts : ToastrService) {
     this.form = this.fb.group({
       'nombre' : ['',Validators.required],
-      'apellido' : ['',Validators.required,Validators.email],
+      'apellido' : ['',Validators.required],
       'edad' : ['',[Validators.required,Validators.min(18),Validators.max(85)]],
       'dni' : ['',[Validators.required,Validators.min(10000000),Validators.max(99999999)]],
       'mail' : ['',[Validators.required,Validators.email]],
@@ -54,13 +54,12 @@ export class RegistroAdminComponent implements OnInit {
   {
     this.as.loading = true;
     this.as.registro(this.usuario).then(async res =>{
-      await this.subirFoto();
-      
+      await this.subirFoto();   
       setTimeout(() => {
         this.as.loading = false;
         this.ts.success("Se registro al administrador con exito","Registro exitoso");
         this.form.reset();
-      }, 2000);
+      }, 1000);
     })
     .catch((error : any)=>{
       if(error.code == 'auth/email-already-exists')
