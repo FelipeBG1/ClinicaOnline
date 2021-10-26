@@ -3,7 +3,7 @@ import { Paciente } from '../interfaces/paciente';
 import { Especialista } from '../interfaces/especialista';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+
 
 
 @Injectable({
@@ -31,6 +31,7 @@ export class FirestoreService {
     this.especialistas = this.especialistaCollectionReference.valueChanges({idField : 'id'});
     this.adminCollectionReference = this.angularF.collection('administradores');
     this.admin = this.adminCollectionReference.valueChanges({idField : 'id'});
+    
 
     this.traerEspecialistas().subscribe(value => {
       this.especialistasArray = value;
@@ -41,6 +42,7 @@ export class FirestoreService {
     this.traerAdmins().subscribe(value => {
       this.admins = value;
     });
+  
    }
 
    traerPacientes()
@@ -102,4 +104,6 @@ export class FirestoreService {
   {
     return this.angularF.collection('especialistas').doc(id).update(especialista);
   }
+
+
 }

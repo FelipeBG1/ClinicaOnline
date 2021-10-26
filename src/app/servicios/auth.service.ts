@@ -14,6 +14,11 @@ export class AuthService {
   usuarioRetornado: any;
   constructor(private auth : AngularFireAuth, private fs : FirestoreService, private router : Router, private ts : ToastrService) { }
 
+  logOut()
+  {
+    this.auth.signOut();
+    this.logeado = false;
+  }
 
   login(usuario : any)
   {
@@ -42,7 +47,7 @@ export class AuthService {
           {
             if(this.fs.usuario.perfil === "especialista")
             {
-              if(res.user.emailVerified)
+              if(!res.user.emailVerified)
               {
                 if(this.fs.usuario.estadoCuenta === "Habilitada")
                 {
@@ -78,7 +83,7 @@ export class AuthService {
         if(error.code == 'auth/wrong-password' || error.code == 'auth/user-not-found')
         {
           this.loading = false;
-          this.ts.error("El email o la password son incorrector","Error datos inválidos");
+          this.ts.error("El email o la password son incorrectos","Error datos inválidos");
         }
       }, 2000);
     })

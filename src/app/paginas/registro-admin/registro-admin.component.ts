@@ -17,6 +17,8 @@ export class RegistroAdminComponent implements OnInit {
   form : FormGroup;
   usuario : any;
   archivo : any = "";
+  numeroRandom : number;
+
 
   constructor(private fb : FormBuilder, public as : AuthService, private fs : FirestoreService, private imageService : ImagenesService, private ts : ToastrService) {
     this.form = this.fb.group({
@@ -26,9 +28,11 @@ export class RegistroAdminComponent implements OnInit {
       'dni' : ['',[Validators.required,Validators.min(10000000),Validators.max(99999999)]],
       'mail' : ['',[Validators.required,Validators.email]],
       'password' : ['',[Validators.required,Validators.minLength(6)]],
+      'capcha' : ['',[Validators.required]],
       'imagen' : [null,Validators.required]
     });
     this.formData = new FormData();
+    this.numeroRandom = Math.floor(Math.random() *  (500 - 100)) + 100;
    }
 
   ngOnInit(): void {
@@ -52,30 +56,38 @@ export class RegistroAdminComponent implements OnInit {
 
   registrarse()
   {
-    this.as.loading = true;
-    this.as.registro(this.usuario).then(async res =>{
-      await this.subirFoto();   
-      setTimeout(() => {
-        this.as.loading = false;
-        this.ts.success("Se registro al administrador con exito","Registro exitoso");
-        this.form.reset();
-      }, 1000);
-    })
-    .catch((error : any)=>{
-      if(error.code == 'auth/email-already-exists')
-      {
-        this.as.loading = false;
-        this.ts.error("Ese email ya esta registrado","Email inválido");
-      }
-      else
-      {
-        if(error.code == 'auth/internal-error')
+    let capcha = this.form.get("capcha")?.value;
+    if(capcha == this.numeroRandom)
+    {
+      this.as.loading = true;
+      this.as.registro(this.usuario).then(async res =>{
+        await this.subirFoto();   
+        setTimeout(() => {
+          this.as.loading = false;
+          this.ts.success("Se registro al administrador con exito","Registro exitoso");
+          this.form.reset();
+        }, 1000);
+      })
+      .catch((error : any)=>{
+        if(error.code == 'auth/email-already-exists')
         {
           this.as.loading = false;
-          this.ts.error("Ha ocurrido un error en el registro","Error");
+          this.ts.error("Ese email ya esta registrado","Email inválido");
         }
-      }
-    })
+        else
+        {
+          if(error.code == 'auth/internal-error')
+          {
+            this.as.loading = false;
+            this.ts.error("Ha ocurrido un error en el registro","Error");
+          }
+        }
+      });
+    }
+    else
+    {
+      this.ts.error("El capcha ingresado no coincide","Capcha incorrecto");
+    }
   }
 
   change($event : any)

@@ -58,10 +58,22 @@
                    <input type="file" formControlName='imagen' (change)="change($event)">
                    <small class="invalid" *ngIf="form.controls.imagen.errors?.required && form.controls.imagen.touched">La imagen es requerida</small>
                </div>
+               <div class="col-2 mt-2">
+                <label for="capcha">Capcha</label>
+                <input type="number" value={{this.numeroRandom}} readonly>
+            </div>
+            <div class="col-8" style="margin-top: 32px;">
+                <input type="text" formControlName='capcha' name="capcha" required>
+                <small class="invalid" *ngIf="form.controls.capcha.errors?.required && form.controls.capcha.touched">El capcha es requerido</small>
+            </div>
+            <div class="col-2 text-center" style="margin-top: 32px;">
+                <input type="text" class="col-12" required readonly value="❌" *ngIf='this.form.get("capcha")?.value != this.numeroRandom'>
+                <input type="text" class="col-12" required readonly value="✔️" *ngIf='this.form.get("capcha")?.value == this.numeroRandom'>
+            </div>
+           
            </div>
-       
            <div>
-               <button type="submit" [disabled]='form.invalid'>Registrarse</button>
+               <button type="submit" [disabled]='form.invalid' class="button fs-4">Registrarse</button>
            </div>
        </div>
    </form>

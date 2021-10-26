@@ -23,6 +23,14 @@ import { NavbarComponent } from './paginas/navbar/navbar.component';
 import { ErrorComponent } from './paginas/error/error.component';
 import { TablaAdminsComponent } from './paginas/tabla-admins/tabla-admins.component';
 import { SeccionUsuariosComponent } from './paginas/seccion-usuarios/seccion-usuarios.component';
+import { SolicitarTurnoComponent } from './paginas/solicitar-turno/solicitar-turno.component';
+import { MiPerfilComponent } from './paginas/mi-perfil/mi-perfil.component';
+import { TurnosComponent } from './paginas/turnos/turnos.component';
+import { MisTurnosComponent } from './paginas/mis-turnos/mis-turnos.component';
+import { PerfilComponent } from './paginas/perfil/perfil.component';
+import { ErrorPacienteEspecialistaComponent } from './paginas/error-paciente-especialista/error-paciente-especialista.component';
+import { ErrorPacienteAdministradorComponent } from './paginas/error-paciente-administrador/error-paciente-administrador.component';
+
 
 @NgModule({
   declarations: [
@@ -41,6 +49,13 @@ import { SeccionUsuariosComponent } from './paginas/seccion-usuarios/seccion-usu
     ErrorComponent,
     TablaAdminsComponent,
     SeccionUsuariosComponent,
+    SolicitarTurnoComponent,
+    MiPerfilComponent,
+    TurnosComponent,
+    MisTurnosComponent,
+    PerfilComponent,
+    ErrorPacienteEspecialistaComponent,
+    ErrorPacienteAdministradorComponent,
   ],
   imports: [
     BrowserModule,

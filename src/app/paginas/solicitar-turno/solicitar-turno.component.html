@@ -1,0 +1,141 @@
+<app-navbar></app-navbar>
+<div *ngIf="this.as.loading">
+  <div *ngIf="this.as.loading">
+      <app-spinner></app-spinner>
+  </div>
+</div>
+<div class="container">
+    <div class="row text-center" *ngIf='this.as.logeado.perfil == "admin"'>
+      <div class="col-12">
+        <button class="col-6 button fs-3 ms-2" (click)="this.cargarPacientes()">Pacientes</button> 
+    </div>
+      <div class="p-3" *ngIf='this.tablaPacientes'>
+          <table class="table table-dark table-borderless">
+              <thead>
+                <tr>  
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Apellido</th>
+                  <th scope="col">Mail</th>
+                  <th scope="col">DNI</th>
+                  <th scope="col">Imagenes</th>
+                  <th scope="col"></th>
+  
+                </tr>
+              </thead>
+              <tbody>
+                      <tr *ngFor="let paciente of pacientes">
+                          <td>{{paciente.nombre}}</td>
+                          <td>{{paciente.apellido}}</td>
+                          <td>{{paciente.mail}}</td>
+                          <td>{{paciente.dni}}</td>
+                          <td>
+                              <img src="{{paciente.imagenes[0]}}" width="100px" height="100px">
+                              <img src="{{paciente.imagenes[1]}}" width="100px" height="100px">
+                          </td>
+                          <td>
+                              <button class="btn btn-outline-light" (click)="asignarPaciente(paciente)">Seleccionar</button>
+                          </td>
+                      </tr> 
+              </tbody>
+            </table>
+      </div>
+    </div>    
+    <div class="row justify-content-around text-center" *ngIf='this.as.logeado.perfil == "admin" && this.pacienteCargado'>
+        <div class="col-12">
+            <button class="col-3 button fs-3 ms-2" (click)="this.cargarEspecialidades()">Especialidades</button>
+            <button class="col-3 button fs-3 ms-2" (click)="this.cargarEspecialistas()">Especialistas</button>      
+        </div>
+    </div>   
+    <div class="row justify-content-around text-center" *ngIf='this.as.logeado.perfil != "admin"'>
+      <div class="col-12">
+          <button class="col-3 button fs-3 ms-2" (click)="this.cargarEspecialidades()">Especialidades</button>
+          <button class="col-3 button fs-3 ms-2" (click)="this.cargarEspecialistas()">Especialistas</button>      
+      </div>
+  </div>   
+  </div>
+    <div *ngIf="this.tablaEspecialidades">
+        <div class="p-3">
+            <table class="table table-dark table-borderless">
+                <thead>
+                  <tr>  
+                    <th scope="col">Nombre</th>
+                    <th scope="col"></th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                        <tr *ngFor="let especialidad of especialidades">
+                            <td>{{especialidad.nombre}}</td>
+                            <td>
+                                <button class="btn btn-outline-light" (click)="cargarEspecialistasSegunEspecialidad(especialidad)">Seleccionar</button>
+                            </td>
+                        </tr> 
+                </tbody>
+              </table>
+        </div>    
+    </div>
+    <br>
+  <div div *ngIf="this.especialistasFiltrados">
+    <div class="p-3">
+        <table class="table table-dark table-borderless">
+            <thead>
+              <tr>  
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Foto</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+                    <tr *ngFor="let especialista of arrayEspecialistasSegunEspecialidad">
+                        <td>{{especialista.nombre}}</td>
+                        <td>{{especialista.apellido}}</td>
+                        <td>
+                            <img src="{{especialista.imagen}}" width="100px" height="100px">
+                        </td>
+                        <td>
+                            <button class="btn btn-outline-light" (click)="seleccionarEspecialista(especialista)">Seleccionar</button>
+                        </td>
+                    </tr> 
+            </tbody>
+          </table>
+    </div>    
+</div>
+<br>
+
+<div div *ngIf="this.tablaEspecialistas">
+    <div class="p-3">
+        <table class="table table-dark table-borderless">
+            <thead>
+              <tr>  
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Especialidad</th>
+                <th scope="col">Foto</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+                    <tr *ngFor="let especialista of arrayEspecialistasTodos">
+                        <td>{{especialista.nombre}}</td>
+                        <td>{{especialista.apellido}}</td>
+                        <td>{{especialista.especialidad.nombre}}</td>
+                        <td>
+                            <img src="{{especialista.imagen}}" width="100px" height="100px">
+                        </td>
+                        <td>
+                            <button class="btn btn-outline-light" (click)="seleccionarEspecialistaV2(especialista)">Seleccionar</button>
+                        </td>
+                    </tr> 
+            </tbody>
+          </table>
+    </div>    
+</div>
+  <div *ngIf="verTurnos" style="background-color: rgba(0, 0, 0, 0.63);">
+    <div class="row gridTurnos" id="filtros">
+      <div class="col-12">
+        <button class="button2 ml-1 mb-1 col-2 " *ngFor="let turno of turnos" (click)="seleccionarTurno(turno)">{{turno}}</button>
+      </div>
+    </div>
+  </div>
+<!--</div>-->

@@ -16,6 +16,12 @@
         <li class="nav-item">
           <a class="nav-link button" [routerLink] = "['/usuarios/datos']">Usuarios</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link button" [routerLink] = "['/turnos/solicitarTurno']">Solicitar Turno</a>
+        </li>
       </ul>
+    </div>
+    <div *ngIf="this.as.logeado">
+      <a class="nav-link button" [routerLink] = "['/perfilGeneral']">{{this.as.logeado.nombre}} {{this.as.logeado.apellido}}</a>
     </div>
   </nav>

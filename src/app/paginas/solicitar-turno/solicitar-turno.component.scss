@@ -1,0 +1,36 @@
+.button {
+  background-color: rgba(0, 0, 0, 0.829);
+  color: white;
+  padding: 10px 15px;
+  margin: 8px 0;
+  border: none;
+  border-radius:2px;
+  cursor: pointer;
+  width: 400px;
+  height: 400px;
+}
+
+.button:hover {
+  background-color: rgba(27, 27, 27, 0.829);
+}
+
+.gridTurnos {
+  overflow-y:scroll;
+  max-height: 350px;
+}
+
+.button2 {
+  background-color: rgb(118, 29, 170);
+  color: white;
+  padding: 10px 15px;
+  margin: 8px 0;
+  border: none;
+  border-radius:2px;
+  width: 100%;
+  opacity: 0.9;
+  font-size:16px;
+}
+
+.button2:hover:enabled {
+  background-color: rgb(145, 38, 207);
+}

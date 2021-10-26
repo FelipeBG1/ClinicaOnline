@@ -3,7 +3,7 @@ export interface Especialista {
     apellido : string;
     edad : number;
     dni : number;
-    especialidad : string;
+    especialidad : any;
     mail : string;
     password : string;
     imagenPerfil : string;

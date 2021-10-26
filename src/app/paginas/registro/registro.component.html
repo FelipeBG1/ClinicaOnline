@@ -54,14 +54,15 @@
                     
                 </div>
                 <div class="row justify-content-center">
-                    <div class="col-12 mb-3" *ngIf='this.tipoUsuario == "especialista"'>
+                    <div class="col-9 mb-3" *ngIf='this.tipoUsuario == "especialista"'>
                         <label for="especialidad">Especialidad</label>
                         <input type="text" id="floatingPassword" formControlName='especialidad' list="especialidades" autocomplete="off">
-                            <datalist id="especialidades">
-                            <option *ngFor="let esp of especialidades" value="{{esp}}">
-                      </datalist>
-                        <small class="invalid" *ngIf="form.controls.especialidad.errors?.required && form.controls.especialidad.touched">La especialidad es requerida</small>
+                           
+                        <small class="invalid" *ngIf="form.controls.especialidad.touched">La especialidad es requerida</small>
                         <small class="invalid" *ngIf="form.controls.especialidad.errors?.maxlength">Maximo 20 caracteres</small>
+                    </div>
+                    <div class="col-3" style="margin-top: 26px;" *ngIf='this.tipoUsuario == "especialista"'>
+                        <button type="button" class="button" (click)="agregarEspecialidad()">Agregar Especialidad</button>
                     </div>
                     <div class="col-12 mb-3" *ngIf='this.tipoUsuario == "paciente"'>
                         <label for="obraSocial">Obra social</label>
@@ -69,13 +70,41 @@
                         <small class="invalid" *ngIf="form.controls.obraSocial.errors?.required && form.controls.obraSocial.touched">La obra social es requerida</small>
                         <small class="invalid" *ngIf="form.controls.obraSocial.errors?.maxlength">Maximo 20 caracteres</small>
                     </div>
+                    <div class="row justify-content-center" *ngIf='this.tipoUsuario == "especialista"'>
+                        <div class="mb-2 col-7">
+                         <div class="row">
+                             <div class="col-6" *ngFor="let esp of this.especialidades">
+                                 <button type="button" class="button" (click)="cargarEspecialidad(esp)">{{esp.nombre}}</button>
+                             </div>
+                         </div>
+                        </div>
+                        <div class="col-4 mb-2">
+                            <p>Especialidades aignadas a este especialista:</p>
+                            <ul style="list-style: none;">
+                                <li *ngFor="let esp of especialidadesAAgregar">{{esp.nombre}}</li>
+                            </ul>
+                        </div>
+                    </div>
                     <div class="col-12 mb-2">
                         <input type="file" formControlName='imagen' (change)="change($event)" *ngIf='this.tipoUsuario !== "paciente"'>
                         <input type="file" formControlName='imagen' (change)="change($event)" multiple *ngIf='this.tipoUsuario === "paciente";'>
                         <small class="invalid" *ngIf="form.controls.imagen.errors?.required && form.controls.imagen.touched && this.tipoUsuario == 'especialista'">La imagen es requerida</small>
                         <small class="invalid" *ngIf="form.controls.imagen.errors?.required && form.controls.imagen.touched && this.tipoUsuario == 'paciente'">Las imagenes son requeridas</small>
                     </div>
+                    <div class="col-2 mt-2">
+                        <label for="capcha">Capcha</label>
+                        <input type="number" value={{this.numeroRandom}} readonly>
+                    </div>
+                    <div class="col-8" style="margin-top: 32px;">
+                        <input type="text" formControlName='capcha' name="capcha" required>
+                        <small class="invalid" *ngIf="form.controls.capcha.errors?.required && form.controls.capcha.touched">El capcha es requerido</small>
+                    </div>
+                    <div class="col-2 text-center" style="margin-top: 32px;">
+                        <input type="text" class="col-12" required readonly value="❌" *ngIf='this.form.get("capcha")?.value != this.numeroRandom'>
+                        <input type="text" class="col-12" required readonly value="✔️" *ngIf='this.form.get("capcha")?.value == this.numeroRandom'>
+                    </div>
                 </div>
+                
             
                 <div class="col-12">
                     <button type="submit" [disabled]='form.invalid' class="button fs-4">Registrarse</button>

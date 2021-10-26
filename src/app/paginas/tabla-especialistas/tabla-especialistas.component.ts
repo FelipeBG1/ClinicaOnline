@@ -25,6 +25,8 @@ export class TablaEspecialistasComponent implements OnInit {
     this.fs.traerEspecialistas().subscribe(value =>{
       this.especialistas = value;
     });
+
+    //this.especialistas = this.fs.especialistasArray; NO TENGO QUE HACER OTRA VEZ EL SUBSCRIBE YA LO HAGO EL CONSTRUCTOR
   }
 
   cambiarEstadoCuenta(especialista : any, estado : number)
