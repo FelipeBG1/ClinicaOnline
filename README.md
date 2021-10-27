@@ -12,7 +12,7 @@ Esta le indicará sobre la barra superior, que a partir de los botones en ella s
 ### Login
 Si desea logearse hará click sobre Login en la barra superior
 
-![Alt text](./src/assets/screenshots/loginBoton.png?raw=true)
+![Alt text](./src/assets/screenshots/LoginBoton.png?raw=true)
 
 Una vez hecho esto le mostrará el siguiente formulario
 
