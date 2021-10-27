@@ -16,6 +16,7 @@ export class TurnosComponent implements OnInit {
   especialidadBuscar : string = "";
   especialistaBuscar : string = "";
   cancelado : boolean = false;
+  encuesta : boolean = false;
   form : FormGroup;
   claseCardCancelado = 'card text-dark bg-danger';
   claseCardEspera = 'card text-dark bg-warning';

@@ -47,7 +47,7 @@ export class AuthService {
           {
             if(this.fs.usuario.perfil === "especialista")
             {
-              if(!res.user.emailVerified)
+              if(res.user.emailVerified)
               {
                 if(this.fs.usuario.estadoCuenta === "Habilitada")
                 {

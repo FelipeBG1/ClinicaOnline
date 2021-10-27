@@ -62,6 +62,7 @@ export class RegistroAdminComponent implements OnInit {
       this.as.loading = true;
       this.as.registro(this.usuario).then(async res =>{
         await this.subirFoto();   
+        await res.user?.sendEmailVerification(); 
         setTimeout(() => {
           this.as.loading = false;
           this.ts.success("Se registro al administrador con exito","Registro exitoso");
