@@ -29,7 +29,6 @@ export class EspecialidadesService {
 
   agregarEspecialidad(especialidad : Especialidad)
   {
-    console.log(especialidad);
     this.especialidadCollectionReference.add({...especialidad});
   }
 }

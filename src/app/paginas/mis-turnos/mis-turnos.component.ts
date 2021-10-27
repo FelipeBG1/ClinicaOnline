@@ -47,7 +47,7 @@ export class MisTurnosComponent implements OnInit {
     this.turnoService.traerTurnos().subscribe(value => 
       {
         this.turnos = value;
-        if(this.as.logeado.pefil == "paciente")
+        if(this.as.logeado.perfil == "paciente")
         {
           this.todosLosTurnos = this.turnos.filter((turno : any) => turno.paciente.dni == this.as.logeado.dni);
           this.turnosFiltrados = this.todosLosTurnos;
@@ -99,9 +99,6 @@ export class MisTurnosComponent implements OnInit {
 
   buscarPacEspecialidad()
   {
-    console.log(this.pacienteBuscar);
-    console.log(this.especialidadBuscar);
-
     if(this.pacienteBuscar != "" && this.especialidadBuscar == "")
     {
       this.pacienteBuscar = this.arreglarPalabra(this.pacienteBuscar);
@@ -188,7 +185,6 @@ export class MisTurnosComponent implements OnInit {
       this.formComentario.get("comentario")?.setValue('');
     })
     .catch((response : any) => {
-      console.log(response);
       setTimeout(() => {
         this.as.loading = true;
         this.ts.error("No se canceló el turno","Error al cancelar");
@@ -217,7 +213,6 @@ export class MisTurnosComponent implements OnInit {
       
     })
     .catch((response : any) => {
-      console.log(response);
       setTimeout(() => {
         this.as.loading = true;
         this.ts.error("No se cargo la encuesta","Error con la encuesta");
@@ -237,7 +232,6 @@ export class MisTurnosComponent implements OnInit {
       this.atencion = "";
     })
     .catch((response : any) => {
-      console.log(response);
       setTimeout(() => {
         this.as.loading = true;
         this.ts.error("No se cargo la calificación","Error con la calificación");
@@ -259,7 +253,6 @@ export class MisTurnosComponent implements OnInit {
      
     })
     .catch((response : any) => {
-      console.log(response);
       setTimeout(() => {
         this.as.loading = true;
         this.ts.error("No se realizo el turno","Error con la realización");
@@ -279,7 +272,6 @@ export class MisTurnosComponent implements OnInit {
       this.ts.success("Se ha aceptado el turno","Aceptado");
     })
     .catch((response : any) => {
-      console.log(response);
       setTimeout(() => {
         this.as.loading = true;
         this.ts.error("No se aceptó el turno","Error al aceptar el turno");

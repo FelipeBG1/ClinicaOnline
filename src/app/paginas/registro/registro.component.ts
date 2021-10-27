@@ -49,11 +49,8 @@ export class RegistroComponent implements OnInit {
       this.especialidades = value;
     });
     this.numeroRandom = Math.floor(Math.random() *  (500 - 100)) + 100;
-    console.log(this.numeroRandom);
 
     this.especialidadesAAgregar = [];
-    
-    console.log(this.especialidadesAAgregar);
 
    }
 

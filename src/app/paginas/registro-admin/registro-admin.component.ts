@@ -111,8 +111,6 @@ export class RegistroAdminComponent implements OnInit {
 
     this.archivo = Date.now() + this.archivo;
 
-    console.log(this.archivo);
-
     let referencia1 = this.imageService.referenciaArchivo(this.archivo);
 
     await this.imageService.subirImagen(this.archivo,archive);

@@ -113,7 +113,6 @@ export class SolicitarTurnoComponent implements OnInit {
         }
       }
     }
-    console.log(this.arrayEspecialistasSegunEspecialidad);
     this.especialistasFiltrados = true;
     this.tablaEspecialidades = false;
   }
@@ -131,7 +130,6 @@ export class SolicitarTurnoComponent implements OnInit {
         esp = especialista;
         esp.especialidad = "";
         esp.especialidad = especialidad;
-        console.log(esp);
         this.arrayEspecialistasTodos.push(esp);
         esp = "";
       }

@@ -16,7 +16,6 @@ export class TurnosComponent implements OnInit {
   especialidadBuscar : string = "";
   especialistaBuscar : string = "";
   cancelado : boolean = false;
-  encuesta : boolean = false;
   form : FormGroup;
   claseCardCancelado = 'card text-dark bg-danger';
   claseCardEspera = 'card text-dark bg-warning';
@@ -98,7 +97,6 @@ export class TurnosComponent implements OnInit {
       }, 1000);
     })
     .catch((response : any) => {
-      console.log(response);
       setTimeout(() => {
         this.ts.error("No se canceló el turno","Error al cancelar");
       }, 1000);
